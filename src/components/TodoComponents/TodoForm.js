@@ -16,15 +16,18 @@ class ToDoForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={e => this.props.handleSubmit(e, this.state.newTask)}>
-        <input
-          value={this.state.newTask}
-          name="newTask"
-          placeholder="new task..."
-          onChange={this.handleInput}
-        />
-        <button type="submit">+</button>
-      </form>
+      <>
+        <form onSubmit={e => this.props.handleSubmit(e, this.state.newTask)}>
+          <input
+            value={this.state.newTask}
+            name="newTask"
+            placeholder="new task..."
+            onChange={this.handleInput}
+          />
+          <button type="submit">+</button>
+        </form>
+        <button onClick={this.props.clearCompleted}>clear completed</button>
+      </>
     );
   }
 }
