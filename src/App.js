@@ -39,6 +39,7 @@ class App extends React.Component {
     this.setState({
       todos: toDoById
     });
+    localStorage.setItem("todoList", JSON.stringify(toDoById));
   };
 
   clearCompleted = () => {
@@ -48,6 +49,7 @@ class App extends React.Component {
     this.setState({
       todos: completed
     });
+    localStorage.setItem("todoList", JSON.stringify(completed));
   };
 
   render() {
