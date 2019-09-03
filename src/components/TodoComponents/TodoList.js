@@ -4,11 +4,11 @@
 import React from "react";
 import ToDo from "./Todo";
 
-function ToDoList({ todos }) {
+function ToDoList({ todos, toggleCompleted }) {
   return (
     <ul>
       {todos.map(todo => (
-        <ToDo todo={todo} />
+        <ToDo todo={todo} toggleCompleted={toggleCompleted} />
       ))}
     </ul>
   );
