@@ -6,18 +6,14 @@ class App extends React.Component {
   // design `App` to be the parent component of your application.
   // this component is going to take care of state, and any change handlers you need to work with your state
   state = {
-    todos: [
-      {
-        task: "Organize Garage",
-        id: 1528817077286,
-        completed: false
-      },
-      {
-        task: "Bake Cookies",
-        id: 1528817084358,
-        completed: false
-      }
-    ]
+    todos: []
+  };
+
+  componentDidMount = () => {
+    const localToDos = JSON.parse(localStorage.getItem("todoList"));
+    this.setState({
+      todos: localToDos || []
+    });
   };
 
   handleSubmit = (e, newTask) => {
@@ -27,9 +23,13 @@ class App extends React.Component {
       id: Date.now(),
       completed: false
     };
-    this.setState(prev => ({
-      todos: [...prev.todos, taskShape]
-    }));
+
+    const newToDoList = [...this.state.todos, taskShape];
+
+    this.setState({
+      todos: newToDoList
+    });
+    localStorage.setItem("todoList", JSON.stringify(newToDoList));
   };
 
   toggleCompleted = id => {
@@ -51,6 +51,7 @@ class App extends React.Component {
   };
 
   render() {
+    if (!this.state.todos) return <h1>loading to dos... </h1>;
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
