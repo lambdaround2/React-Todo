@@ -4,6 +4,29 @@
 import React from "react";
 import ToDo from "./Todo";
 
+const Styles = {
+  container: {
+    //border: '.2em solid #000',
+    boxShadow: '0 0 4em 0 #000', 
+    backgroundImage: `url("https://cdn.pixabay.com/photo/2013/07/12/14/42/education-148605_1280.png")`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    display: 'flexbox',
+    alignContent: 'center',
+    alignItems: 'center',
+
+    width: '10em',
+    height: 'auto',
+    margin: '1em',
+    padding: '2em'
+  },
+
+  list: {
+    fontSize: '1.5em',
+    fontFamily: 'Ink Draft'
+  }
+}
+
 class ToDoList extends React.Component {
   constructor(props) {
     super(props);
@@ -20,13 +43,14 @@ class ToDoList extends React.Component {
 
   render() {
     return (
-      <>
+      <div style={Styles.container}>
         <input
           value={this.state.searchInput}
           name="searchInput"
           onChange={this.handleSearch}
         />
-        <ul>
+
+        <ul style = {Styles.list}>
           {this.props.todos.map(
             todo =>
               todo.task.includes(this.state.searchInput) && (
@@ -37,7 +61,7 @@ class ToDoList extends React.Component {
               )
           )}
         </ul>
-      </>
+      </div>
     );
   }
 }

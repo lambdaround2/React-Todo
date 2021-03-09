@@ -1,6 +1,26 @@
 import React from "react";
 import ToDoList from "./components/TodoComponents/TodoList";
 import ToDoForm from "./components/TodoComponents/TodoForm";
+
+
+const Styles = {
+  container: {
+    backgroundImage: `url("https://cdn.pixabay.com/photo/2015/07/28/22/01/office-865091_1280.jpg")`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+ 
+  },
+
+  title: {
+    fontSize: '5em',
+    padding: '.2em',
+  }
+}
+
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -16,6 +36,8 @@ class App extends React.Component {
     });
   };
 
+  
+
   handleSubmit = (e, newTask) => {
     e.preventDefault();
     let taskShape = {
@@ -23,13 +45,13 @@ class App extends React.Component {
       id: Date.now(),
       completed: false
     };
-
     const newToDoList = [...this.state.todos, taskShape];
-
+    
     this.setState({
       todos: newToDoList
     });
     localStorage.setItem("todoList", JSON.stringify(newToDoList));
+
   };
 
   toggleCompleted = id => {
@@ -41,7 +63,6 @@ class App extends React.Component {
     });
     localStorage.setItem("todoList", JSON.stringify(toDoById));
   };
-
   clearCompleted = () => {
     const completed = this.state.todos.filter(todo => {
       return todo.completed === false;
@@ -52,22 +73,31 @@ class App extends React.Component {
     localStorage.setItem("todoList", JSON.stringify(completed));
   };
 
+
+
+
   render() {
     if (!this.state.todos) return <h1>loading to dos... </h1>;
+
     return (
-      <div>
-        <h2>Welcome to your Todo App!</h2>
+      <div style = {Styles.container}>
+        <h2 style = {Styles.title}>Todo</h2>
         <ToDoList
           todos={this.state.todos}
           toggleCompleted={this.toggleCompleted}
         />
+        <h2 style = {Styles.title}>List</h2>
+
         <ToDoForm
           handleSubmit={this.handleSubmit}
           clearCompleted={this.clearCompleted}
         />
       </div>
     );
+
   }
+
 }
+
 
 export default App;
